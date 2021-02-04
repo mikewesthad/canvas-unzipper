@@ -1,25 +1,33 @@
 import { Command } from "commander";
-import { isDirSync } from "./file-utils";
+import { isFileSync } from "./file-utils";
 import logger from "./logger";
+import { parse } from "path";
 
 const version = process.env.npm_package_version ?? "unknown";
 
 export default function parseCli() {
   const program = new Command();
 
-  let studentWorkDirectory = "";
+  let studentWorkZip = "";
+  let outputPath = "";
   program
     .version(version)
-    .arguments("<PathToStudentWork>")
+    .arguments("<pathToStudentWorkZip> <pathToOutputUnzippedWork>")
+    .description("canvas-unzip", {
+      pathToStudentWorkZip: "Path to a downloaded submissions zip from Canvas",
+      pathToOutputUnzippedWork: "Path to output the unzipped and organized student work",
+    })
     .option("-v, --verbose", "Output extra verbose information while unzipping student work.")
-    .action((name, options, command) => {
-      studentWorkDirectory = name;
+    .action((inPath, outPath, options) => {
+      studentWorkZip = inPath;
+      outputPath = outPath;
     });
 
   program.parse(process.argv);
 
-  if (!studentWorkDirectory || !isDirSync(studentWorkDirectory)) {
-    logger.error("You need to provide a valid path to a directory of canvas student work.");
+  const isZip = parse(studentWorkZip).ext === ".zip";
+  if (!studentWorkZip || !isFileSync(studentWorkZip) || !isZip) {
+    logger.error("You need to provide a valid path to a zip of student work from Canvas.");
     process.exit(1);
   }
 
@@ -27,7 +35,8 @@ export default function parseCli() {
   const isVerbose = options.verbose ? true : false;
 
   return {
-    studentWorkDirectory,
+    studentWorkZip,
     isVerbose,
+    outputPath,
   };
 }
