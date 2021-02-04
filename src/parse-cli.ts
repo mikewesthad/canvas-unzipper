@@ -1,7 +1,8 @@
 import { Command } from "commander";
 import { isDirSync } from "./file-utils";
-import { version } from "../package.json";
 import logger from "./logger";
+
+const version = process.env.npm_package_version ?? "unknown";
 
 export default function parseCli() {
   const program = new Command();
