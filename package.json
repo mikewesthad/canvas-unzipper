@@ -11,9 +11,9 @@
     "bin/"
   ],
   "scripts": {
-    "start": "ts-node ./src/index.ts -v \"test\"",
     "help": "ts-node ./src/index.ts --version",
     "build": "tsc"
+    "start:test": "ts-node ./src/index.ts -v \"test-download/submissions.zip\" \"test-download/output\"",
   },
   "keywords": [],
   "author": "",
