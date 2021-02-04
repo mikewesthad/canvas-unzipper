@@ -11,7 +11,7 @@ export default function parseCli() {
   program
     .version("1.0.1")
     .arguments("<pathToStudentWorkZip> <pathToOutputUnzippedWork>")
-    .description("canvas-unzip", {
+    .description("canvas-unzipper", {
       pathToStudentWorkZip: "Path to a downloaded submissions zip from Canvas",
       pathToOutputUnzippedWork: "Path to output the unzipped and organized student work",
     })
