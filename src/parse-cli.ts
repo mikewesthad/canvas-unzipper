@@ -3,15 +3,13 @@ import { isFileSync } from "./file-utils";
 import logger from "./logger";
 import { parse } from "path";
 
-const version = process.env.npm_package_version ?? "unknown";
-
 export default function parseCli() {
   const program = new Command();
 
   let studentWorkZip = "";
   let outputPath = "";
   program
-    .version(version)
+    .version("1.0.1")
     .arguments("<pathToStudentWorkZip> <pathToOutputUnzippedWork>")
     .description("canvas-unzip", {
       pathToStudentWorkZip: "Path to a downloaded submissions zip from Canvas",
