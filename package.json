@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "canvas-unzip": "src/index.js"
+    "canvas-unzip": "bin/index.js"
   },
   "scripts": {
     "start": "ts-node ./src/index.ts -v \"test\"",
