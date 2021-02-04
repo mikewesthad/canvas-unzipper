@@ -2,21 +2,19 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 var commander_1 = require("commander");
 var file_utils_1 = require("./file-utils");
 var logger_1 = __importDefault(require("./logger"));
 var path_1 = require("path");
-var version = (_a = process.env.npm_package_version) !== null && _a !== void 0 ? _a : "unknown";
 function parseCli() {
     var program = new commander_1.Command();
     var studentWorkZip = "";
     var outputPath = "";
     program
-        .version(version)
+        .version("1.0.1")
         .arguments("<pathToStudentWorkZip> <pathToOutputUnzippedWork>")
-        .description("canvas-unzip", {
+        .description("canvas-unzipper", {
         pathToStudentWorkZip: "Path to a downloaded submissions zip from Canvas",
         pathToOutputUnzippedWork: "Path to output the unzipped and organized student work",
     })
