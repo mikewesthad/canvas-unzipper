@@ -6,6 +6,10 @@
   "bin": {
     "canvas-unzip": "bin/index.js"
   },
+  "files": [
+    "src/",
+    "bin/"
+  ],
   "scripts": {
     "start": "ts-node ./src/index.ts -v \"test\"",
     "help": "ts-node ./src/index.ts --version",
