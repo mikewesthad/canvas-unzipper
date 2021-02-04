@@ -39,21 +39,27 @@ output/
 Make sure you have [node & npm](https://nodejs.org/en/) installed, and then run:
 
 ```
-npx install -g canvas-unzippper
+npm install -g canvas-unzippper
+```
+
+Or use the command directly without installing first via:
+
+```
+npx canvas-unzippper
 ```
 
 If you've got a zip download from Canvas, you can run:
 
 ```
-canvas-unzip path/to/submissions.zip path/to/desired/output
+canvas-unzipper path/to/submissions.zip path/to/desired/output
 ```
 
 Help info:
 
 ```
-canvas-unzip [options] <pathToStudentWorkZip> <pathToOutputUnzippedWork>
+canvas-unzipper [options] <pathToStudentWorkZip> <pathToOutputUnzippedWork>
 
-canvas-unzip
+canvas-unzipper
 
 Arguments:
   pathToStudentWorkZip      Path to a downloaded submissions zip from Canvas
