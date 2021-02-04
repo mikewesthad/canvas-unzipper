@@ -1,9 +1,9 @@
 # Canvas Unzipper
 
-When you download a zip of student work for an assignment on Canvas, it gives you a zip with a structure that looks something like:
+When you download a zip of student work submissions for an assignment on Canvas, it gives you a zip that contains student work as a bunch of loose files. I have my students turn in a zip and a screenshot for most projects, so I get something like:
 
 ```
-submissions/
+submissions.zip
 ├── smithbob_340934_208490284_BobsWork.zip
 ├── smithbob_340934_208490284_BobsScreenshot.png
 ├── wellslane_334244_394803489_MyAssignment.zip
@@ -13,7 +13,7 @@ submissions/
 └── ...
 ```
 
-This tool unzips that work and places each student's work into a directory like this:
+This tool unzips the submissions and places each student's work into a directory. If a student submitted a zip, it will also unzip that students work. The previous example would be turned into:
 
 ```
 output/
@@ -36,7 +36,34 @@ output/
 
 ## Installation & Usage
 
-TODO
+Make sure you have [node & npm](https://nodejs.org/en/) installed, and then run:
+
+```
+npx install -g canvas-unzippper
+```
+
+If you've got a zip download from Canvas, you can run:
+
+```
+canvas-unzip path/to/submissions.zip path/to/desired/output
+```
+
+Help info:
+
+```
+canvas-unzip [options] <pathToStudentWorkZip> <pathToOutputUnzippedWork>
+
+canvas-unzip
+
+Arguments:
+  pathToStudentWorkZip      Path to a downloaded submissions zip from Canvas
+  pathToOutputUnzippedWork  Path to output the unzipped and organized student work
+
+Options:
+  -V, --version             output the version number
+  -v, --verbose             Output extra verbose information while unzipping student work.
+  -h, --help                display help for command
+```
 
 ## Important Notes
 
@@ -55,12 +82,8 @@ Where the convention is:
 This tool simply splits the file on "_" and uses the first part as their name. This will likely not work correctly if:
 
 - Two students have the same first name and last name.
-- You add some extra random files to the zip folder.
 - A student has a "_" in their name.
 
 ## To Dos
 
-- Publish to NPM for easy global install as a CLI tool.
-- Update the tool to accept a zip from canvas as the input.
-- Update the tool to accept an output path as an option (vs unzipping in the current location).
 - Update the tool to report some stats on what was extracted.
