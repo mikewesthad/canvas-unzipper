@@ -1,11 +1,12 @@
 import { existsSync, lstatSync, mkdirSync } from "fs";
 
 /**
- * Make a directory at the given path, if it does not already exist.
+ * Make a directory at the given path, if it does not already exist. This will recursively make
+ * non-existent directories in the path if needed.
  * @param path
  */
 export function mkdirSyncIfNotExist(path: string) {
-  if (!existsSync(path)) mkdirSync(path);
+  if (!existsSync(path)) mkdirSync(path, { recursive: true });
 }
 
 /**
