@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "canvas-unzip": "bin/index.js"
+    "canvas-unzipper": "bin/index.js"
   },
   "files": [
     "src/",
