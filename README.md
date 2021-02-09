@@ -39,13 +39,13 @@ output/
 Make sure you have [node & npm](https://nodejs.org/en/) installed, and then run:
 
 ```
-npm install -g canvas-unzippper
+npm install -g canvas-unzipper
 ```
 
 Or use the command directly without installing first via:
 
 ```
-npx canvas-unzippper
+npx canvas-unzipper
 ```
 
 If you've got a zip download from Canvas, you can run:
