@@ -42,11 +42,7 @@ Make sure you have [node & npm](https://nodejs.org/en/) installed, and then run:
 npm install -g canvas-unzipper
 ```
 
-Or use the command directly without installing first via:
-
-```
-npx canvas-unzipper
-```
+Alternatively, you can run the command without installing globally. Just use `npx canvas-unzipper` in place of `canvas-unzipper` in the instructions below.
 
 If you've got a zip download from Canvas, you can run:
 
