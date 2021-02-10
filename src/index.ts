@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { copyFileSync, createReadStream, existsSync, readdirSync } from "fs";
+import { copyFileSync, existsSync, readdirSync } from "fs";
 import { join, parse } from "path";
 import { isFileSync, mkdirSyncIfNotExist } from "./file-utils";
 import parseCli from "./parse-cli";
@@ -63,7 +63,6 @@ async function main() {
   files.forEach(async (file) => {
     const studentName = file.split("_")[0];
     const { ext, name } = parse(file);
-    const studentFolder = join(unzippedPath, studentName);
     const filePath = join(unzippedPath, file);
 
     // Skip directories or unknown students.
