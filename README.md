@@ -89,7 +89,3 @@ This tool simply splits the file on "_" and uses the first part as their name. T
 
 - Two students have the same first name and last name.
 - A student has a "_" in their name.
-
-## To Dos
-
-- Update the tool to report some stats on what was extracted.
