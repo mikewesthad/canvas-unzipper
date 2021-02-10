@@ -11,6 +11,7 @@ import tmp from "tmp";
 async function main() {
   const { isVerbose, studentWorkZip, outputPath } = parseCli();
   logger.isVerbose = isVerbose;
+  logger.log(`Unzipping "${studentWorkZip}" => "${outputPath}"`);
 
   // Create a temp directory to unzip to, which also removes itself when the process ends.
   tmp.setGracefulCleanup();
@@ -60,6 +61,8 @@ async function main() {
 
   // Now that we've got a student list, start processing the zips and other files.
   logger.verboseLog(`\nProcessing student work...`);
+  const promises: Promise<void>[] = [];
+  let filesProcessed = 0;
   files.forEach(async (file) => {
     const studentName = file.split("_")[0];
     const { ext, name } = parse(file);
@@ -68,12 +71,16 @@ async function main() {
     // Skip directories or unknown students.
     if (!isFileSync(filePath) || !studentNames.has(studentName)) return;
 
+    filesProcessed++;
+
     if (ext === ".zip") {
       const destPath = join(outputPath, studentName, name);
       // Copy the zip to the new student work folder.
       logger.verboseLog(`  Found a zip from ${studentName}, unzipping.`);
       try {
-        await unzip(filePath, destPath);
+        const promise = unzip(filePath, destPath);
+        promises.push(promise);
+        await promise;
         logger.verboseLog(`  Finished unzipping ${studentName}'s work.`);
       } catch (err) {
         logger.error(`Error unzipping ${studentName}'s work.`);
@@ -84,6 +91,9 @@ async function main() {
       copyFileSync(filePath, destPath);
     }
   });
+
+  await Promise.all(promises);
+  logger.log(`Done! Unzipped ${filesProcessed} files by ${studentNames.size} students.`);
 }
 
 main().catch((e) => logger.error(e));
