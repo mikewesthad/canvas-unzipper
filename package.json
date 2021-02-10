@@ -1,7 +1,7 @@
 {
   "name": "canvas-unzipper",
   "version": "1.1.0",
-  "description": "",
+  "description": "A CLI tool for unzipping Canvas submissions.",
   "main": "index.js",
   "bin": {
     "canvas-unzipper": "bin/index.js"
@@ -32,5 +32,13 @@
     "commander": "^7.0.0",
     "tmp": "^0.2.1",
     "unzipper": "^0.10.11"
+  },
+  "homepage": "https://github.com/mikewesthad/canvas-unzipper/blob/main/README.md",
+  "bugs": {
+    "url": "https://github.com/mikewesthad/canvas-unzipper/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikewesthad/canvas-unzipper"
   }
 }
