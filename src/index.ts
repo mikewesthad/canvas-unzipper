@@ -86,4 +86,4 @@ async function main() {
   });
 }
 
-main().catch((e) => logger.verboseLog(e));
+main().catch((e) => logger.error(e));
