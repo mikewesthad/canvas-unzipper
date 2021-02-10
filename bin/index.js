@@ -49,13 +49,14 @@ var unzip_1 = __importDefault(require("./unzip"));
 var tmp_1 = __importDefault(require("tmp"));
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, isVerbose, studentWorkZip, outputPath, tmpDir, name, unzippedPath, err_1, files, studentNames;
+        var _a, isVerbose, studentWorkZip, outputPath, tmpDir, name, unzippedPath, err_1, files, studentNames, promises, filesProcessed;
         var _this = this;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _a = parse_cli_1.default(), isVerbose = _a.isVerbose, studentWorkZip = _a.studentWorkZip, outputPath = _a.outputPath;
                     logger_1.default.isVerbose = isVerbose;
+                    logger_1.default.log("Unzipping \"" + studentWorkZip + "\" => \"" + outputPath + "\"");
                     // Create a temp directory to unzip to, which also removes itself when the process ends.
                     tmp_1.default.setGracefulCleanup();
                     tmpDir = tmp_1.default.dirSync({ unsafeCleanup: true, prefix: "CanvasUnzip_" });
@@ -104,18 +105,20 @@ function main() {
                     logger_1.default.verboseLog(studentNames.size + "x students found.");
                     // Now that we've got a student list, start processing the zips and other files.
                     logger_1.default.verboseLog("\nProcessing student work...");
+                    promises = [];
+                    filesProcessed = 0;
                     files.forEach(function (file) { return __awaiter(_this, void 0, void 0, function () {
-                        var studentName, _a, ext, name, studentFolder, filePath, destPath, err_2, destPath;
+                        var studentName, _a, ext, name, filePath, destPath, promise, err_2, destPath;
                         return __generator(this, function (_b) {
                             switch (_b.label) {
                                 case 0:
                                     studentName = file.split("_")[0];
                                     _a = path_1.parse(file), ext = _a.ext, name = _a.name;
-                                    studentFolder = path_1.join(unzippedPath, studentName);
                                     filePath = path_1.join(unzippedPath, file);
                                     // Skip directories or unknown students.
                                     if (!file_utils_1.isFileSync(filePath) || !studentNames.has(studentName))
                                         return [2 /*return*/];
+                                    filesProcessed++;
                                     if (!(ext === ".zip")) return [3 /*break*/, 5];
                                     destPath = path_1.join(outputPath, studentName, name);
                                     // Copy the zip to the new student work folder.
@@ -123,7 +126,9 @@ function main() {
                                     _b.label = 1;
                                 case 1:
                                     _b.trys.push([1, 3, , 4]);
-                                    return [4 /*yield*/, unzip_1.default(filePath, destPath)];
+                                    promise = unzip_1.default(filePath, destPath);
+                                    promises.push(promise);
+                                    return [4 /*yield*/, promise];
                                 case 2:
                                     _b.sent();
                                     logger_1.default.verboseLog("  Finished unzipping " + studentName + "'s work.");
@@ -142,9 +147,13 @@ function main() {
                             }
                         });
                     }); });
+                    return [4 /*yield*/, Promise.all(promises)];
+                case 5:
+                    _b.sent();
+                    logger_1.default.log("Done! Unzipped " + filesProcessed + " files by " + studentNames.size + " students.");
                     return [2 /*return*/];
             }
         });
     });
 }
-main().catch(function (e) { return logger_1.default.verboseLog(e); });
+main().catch(function (e) { return logger_1.default.error(e); });
