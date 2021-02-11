@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 
-import { copyFileSync, existsSync, readdirSync } from "fs";
+import { existsSync, readdirSync, promises } from "fs";
 import { join, parse } from "path";
 import { isFileSync, mkdirSyncIfNotExist } from "./file-utils";
 import parseCli from "./parse-cli";
 import logger from "./logger";
 import unzip from "./unzip";
 import tmp from "tmp";
+
+const { copyFile } = promises;
 
 async function main() {
   const { isVerbose, studentWorkZip, outputPath } = parseCli();
@@ -88,7 +90,9 @@ async function main() {
     } else {
       const destPath = join(outputPath, studentName, `${name}${ext}`);
       logger.verboseLog(`  Found non-zipped work from ${studentName}, copying to student folder.`);
-      copyFileSync(filePath, destPath);
+      const promise = copyFile(filePath, destPath);
+      promises.push(promise);
+      await promise;
     }
   });
 
