@@ -53,17 +53,20 @@ canvas-unzipper path/to/submissions.zip path/to/desired/output
 Help info:
 
 ```
-canvas-unzipper [options] <pathToStudentWorkZip> <pathToOutputUnzippedWork>
+canvas-unzipper [options] <pathToStudentWorkZip> [pathToOutputUnzippedWork]
 
 canvas-unzipper
 
 Arguments:
   pathToStudentWorkZip      Path to a downloaded submissions zip from Canvas
-  pathToOutputUnzippedWork  Path to output the unzipped and organized student work
+  pathToOutputUnzippedWork  Path to output the unzipped and organized student work. If
+                            not specified, this outputs to a folder at
+                            pathToStudentWorkZip (minus the .zip extension).
 
 Options:
   -V, --version             output the version number
-  -v, --verbose             Output extra verbose information while unzipping student work.
+  -v, --verbose             Output extra verbose information while unzipping student
+                            work.
   -h, --help                display help for command
 ```
 
