@@ -47,6 +47,7 @@ var parse_cli_1 = __importDefault(require("./parse-cli"));
 var logger_1 = __importDefault(require("./logger"));
 var unzip_1 = __importDefault(require("./unzip"));
 var tmp_1 = __importDefault(require("tmp"));
+var copyFile = fs_1.promises.copyFile;
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var _a, isVerbose, studentWorkZip, outputPath, tmpDir, name, unzippedPath, err_1, files, studentNames, promises, filesProcessed;
@@ -108,7 +109,7 @@ function main() {
                     promises = [];
                     filesProcessed = 0;
                     files.forEach(function (file) { return __awaiter(_this, void 0, void 0, function () {
-                        var studentName, _a, ext, name, filePath, destPath, promise, err_2, destPath;
+                        var studentName, _a, ext, name, filePath, destPath, promise, err_2, destPath, promise;
                         return __generator(this, function (_b) {
                             switch (_b.label) {
                                 case 0:
@@ -137,13 +138,17 @@ function main() {
                                     err_2 = _b.sent();
                                     logger_1.default.error("Error unzipping " + studentName + "'s work.");
                                     return [3 /*break*/, 4];
-                                case 4: return [3 /*break*/, 6];
+                                case 4: return [3 /*break*/, 7];
                                 case 5:
                                     destPath = path_1.join(outputPath, studentName, "" + name + ext);
                                     logger_1.default.verboseLog("  Found non-zipped work from " + studentName + ", copying to student folder.");
-                                    fs_1.copyFileSync(filePath, destPath);
-                                    _b.label = 6;
-                                case 6: return [2 /*return*/];
+                                    promise = copyFile(filePath, destPath);
+                                    promises.push(promise);
+                                    return [4 /*yield*/, promise];
+                                case 6:
+                                    _b.sent();
+                                    _b.label = 7;
+                                case 7: return [2 /*return*/];
                             }
                         });
                     }); });
