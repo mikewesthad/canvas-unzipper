@@ -11,7 +11,7 @@
     "bin/"
   ],
   "scripts": {
-    "start:test": "ts-node ./src/index.ts -v \"test-download/submissions.zip\" \"test-download/output\"",
+    "start:test": "ts-node ./src/index.ts -v \"test-download/submissions.zip\"",
     "help": "ts-node ./src/index.ts --help",
     "build": "tsc",
     "install:local": "npm run build && npm link --force",
